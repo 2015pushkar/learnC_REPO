@@ -14,6 +14,8 @@ void Stochastic_Strategy(char * filePath)
     float *HIGH = readColumn(file_ptr,3); // Accessing HIGH column from .csv file
     float *LOW = readColumn(file_ptr,4); // Accessing LOW column from .csv file
 
+    int length=findLengthOfArray(filePath);
+
     //SS is prefix for the common variables to differentiate it is for bollinger band strategy.
     int SSTradeNo = 1;// This indicates the total number of trades that can happen. 
     float SSBuyp = 0; // This is the price at which the trade can be bought. 
@@ -29,7 +31,7 @@ void Stochastic_Strategy(char * filePath)
     _Bool SSIntrade = false; //False means the Trade is in and allowed to buy the stock
 
     printf("Trade\tStatus\t\tDate\t\t\tPrice\t\tP/L\n\n");
-    for (int i=(close[0]-days); i>0; i--)
+    for (int i=(length-days); i>0; i--)
     {
         //float presentDayClosePrice=close[i];
 
@@ -67,4 +69,33 @@ void Stochastic_Strategy(char * filePath)
     free(filePath);
     return;
 
+}
+
+int findLengthOfArray(char* filePath)
+{
+    FILE *fp;
+    int count = 0;  // Line counter (result)
+    
+    char c;  // To store a character read from file
+  
+    // Open the file
+    fp = fopen(filePath, "r");
+  
+    // Check if file exists
+    if (fp == NULL)
+    {
+        printf("Could not open file %s", filePath );
+        return 0;
+    }
+  
+    // Extract characters from file and store in character c
+    for (c = getc(fp); c != EOF; c = getc(fp))
+        if (c == '\n') // Increment count if this character is newline
+            count = count + 1;
+  
+    // Close the file
+    fclose(fp);
+  
+  
+    return count-1;
 }

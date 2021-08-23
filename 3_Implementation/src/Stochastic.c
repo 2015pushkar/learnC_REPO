@@ -36,6 +36,7 @@ float funforK(int days,int crtday, float *close, float *HIGH, float *LOW)
             sum3 += LOW[i];
         }
     }
+    K = ((sum1-sum3)/(sum2-sum3))*100;
     return K;
 
 }

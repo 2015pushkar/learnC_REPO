@@ -17,6 +17,8 @@ float funforK(int ,int , float* , float* , float*);
 
 float funforD(int ,int , float* , float* , float*);
 
+int findLengthOfArray(char* );
+
 
 
 #endif
