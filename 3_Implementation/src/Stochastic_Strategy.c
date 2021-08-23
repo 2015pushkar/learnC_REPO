@@ -1,24 +1,13 @@
-#include "header.h"
+#include "Stochastic_header.h"
 #include <unistd.h>
 
 
 void Stochastic_Strategy(char * filePath)
 {
     int SS_Choice; // for your choice
-    int days=14;
+    int days=14; 
   
-    printf("/n Stochastic Strategy necessitates use of 2 different days for its calculations:");
-    scanf("%d",&SS_Choice);// Asking the user whether to go with default values or will user input the values(eg: Enter '14' -> for 14 day moving average)
-    while (SS_Choice!=1 && SS_Choice!=2) // checks is the user has inputted any values other than the given menu
-    {
-        printf("\nEnter a valid choice from the list given:");
-        scanf("%d",&SS_Choice);
-    }
-    if(SS_Choice==2)
-    {
-        printf("\nEnter the number of days for middle band average and factor for bands calculation(positive whole number): "); 
-        scanf("%d",&days);// you can input different values in here according to your strategy
-    }
+    
     
     FILE *file_ptr = fopen(filePath,"r"); // This is to open the .csv file path and assign it to pointer for the further processing by choosing specific Column.
     float *close = readColumn(file_ptr,7); // Accessing close column from .csv file
@@ -42,13 +31,13 @@ void Stochastic_Strategy(char * filePath)
     printf("Trade\tStatus\t\tDate\t\t\tPrice\t\tP/L\n\n");
     for (int i=(close[0]-days); i>0; i--)
     {
-        float presentDayClosePrice=close[i];
+        //float presentDayClosePrice=close[i];
 
-        if (Stochastic_crossover(days,i, close, HIGH,LOW) && !SSIntrade ){
+        if (Stochastic_crossover(days,i, close, HIGH,LOW) && !SSIntrade){
             char *date = readDate(filePath,i+1);
             SSBuyp=close[i];
 
-            printf("%d\tBUY\t\t%s\t\t%d\n", SSTradeNo, date, SSBuyp);
+            printf("%d\tBUY\t\t%s\t\t%f\n", SSTradeNo, date, SSBuyp);
             SSTradeNo++;
             SSIntrade = true;// True means the trade is open and allowed to sell the stock 
         }
@@ -63,7 +52,7 @@ void Stochastic_Strategy(char * filePath)
             SSTotalLoss += abs((SSProfitLoss<0)?SSProfitLoss:0);
             SSProfitableTrades += ((SSProfitLoss>0)?1:0);
             
-            printf("\tSELL\t\t%s\t\t%d\t\t%d\n\n", date, SSSellp, SSProfitLoss);
+            printf("\tSELL\t\t%s\t\t%f\t\t%f\n\n", date, SSSellp, SSProfitLoss);
             
             SSIntrade = false;
         }
@@ -72,8 +61,9 @@ void Stochastic_Strategy(char * filePath)
     SSTotalLoss = (SSTotalLoss==0)?1:SSTotalLoss;
     SSProfitFactor = SSTotalProfit/SSTotalLoss;
     SSProfitablePercent = (SSProfitableTrades/(SSTradeNo-2))*100;
-    printf("\n|| Total Trades: %d ||\t|| Profitable Trades percentage: %0.2f %% ||\t|| Total P/L: %d ||\t|| Profit Factor: %0.3f ||\n\n", (SSTradeNo-2), SSProfitablePercent,SSTotalpl, SSProfitFactor);
+    printf("\n|| Total Trades: %d ||\t|| Profitable Trades percentage: %0.2f %% ||\t|| Total P/L: %f ||\t|| Profit Factor: %0.3f ||\n\n", (SSTradeNo-2), SSProfitablePercent,SSTotalpl, SSProfitFactor);
 
+    fclose(file_ptr);
     free(filePath);
     return;
 

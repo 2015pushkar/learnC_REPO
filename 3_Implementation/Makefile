@@ -37,9 +37,9 @@ src/bollingerBands.c\
 src/bollingerCrossover.c\
 src/bollingerStrategy.c\
 src/WillR.c\
-src/Stochastic.c
-src/Stochastic_crossover.C\
-src/Stochastic_Strategy
+src/Stochastic.c\
+src/Stochastic_crossover.c\
+src/Stochastic_Strategy.c
 
 # All test source files
 TEST_SRC = test/testMain.c\
