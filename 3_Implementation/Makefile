@@ -8,7 +8,7 @@ TEST_PROJT_NAME = Test_$(PROJT_NAME)
 # Output directory
 BUILD = build
 
-CC = gcc
+CC = gcc    
 
 #To check if the OS is Windows or Linux and set the executable file extension and delete command accordingly
 ifdef OS
@@ -34,16 +34,23 @@ src/readDate.c\
 src/sma.c\
 src/smaStrategy.c\
 src/bollingerBands.c\
-src/bollingerCrossover.c\
 src/bollingerStrategy.c\
+src/mfi.c\
 src/WillR.c\
 src/Stochastic.c\
 src/Stochastic_crossover.c\
-src/Stochastic_Strategy.c
+src/Stochastic_Strategy.c\
+src/ema.c\
+src/emaStrategy.c\
+src/macd.c\
+src/macdStrategy.c\
+src/rsi.c\
+src/rsiStrategy.c\
+src/findLength.c
 
 # All test source files
-TEST_SRC = test/testMain.c\
-unity/unity.c
+TEST_SRC = test/Test.c\
+unity/unity.c\
 
 # All include folders with header files
 INC = -Iinc\
@@ -68,7 +75,7 @@ test: $(SRC) $(TEST_SRC) $(BUILD)
 	$(call FixPath,$(BUILD)/$(TEST_PROJT_NAME).$(EXEC))
 
 coverage:${PROJECT_NAME} $(BUILD)
-	gcc -fprofile-arcs -ftest-coverage $(SRC) $(TEST_SRC) $(INC) -o $(call FixPath,$(BUILD)/$(TEST_PROJT_NAME).$(EXEC)) -lm
+	gcc -fprofile-arcs -ftest-coverage $(SRC) $(TEST_SRC) $(INC) -o $(call FixPath,$(BUILD)/$(TEST_PROJT_NAME).$(EXEC))
 	$(call FixPath,$(BUILD)/$(TEST_PROJT_NAME).$(EXEC))
 	$(MOVE) *.gcno src
 	$(MOVE) *.gcda src

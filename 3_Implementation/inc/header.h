@@ -95,6 +95,39 @@ _Bool bollingerBandIndicator(int mulFactor,int noOfDaysMA,int presentDay,float* 
  */
 void boilingerStrategy(char * filePath);
 
+void mfi(char * filePathMFI);
+
+float ema(int days, int crtday, float *columnArray);
+
+_Bool emaCrossover(int em1, int em2, int crtday, float *coloumnArray);
+
+void emaStrategy(char *filePath);
+
+float macd(int fastLength, int slowLength, int crtday, float *columnArray);
+
+_Bool macdCondition(int fastLength, int slowLength, int crtday, float *columnArray);
+
+void macdStrategy(char *filePath);
+
+float rsi(int days, int crtday, float *high, float *low);
+
+/**
+ * @brief tells if the 14 days rsi(relative strength index) is overbought or oversold 
+ * 
+ * @return _Bool
+ */
+_Bool rsiCrossover( int rs1, int crtday, float *high ,float *low);
+
+/**
+ * @brief The function executes the rsi Strategy by considering the user choices 
+ * 
+ * @param file 
+ */
+void rsiStrategy(char *filePath);
+
+int WilliamR(char* filepath);
+
+int findLength(char *);   //to find the number of rows in file
 
 
 #endif

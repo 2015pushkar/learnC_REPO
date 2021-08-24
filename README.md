@@ -1,8 +1,8 @@
 # Trading Strategy Tester
 
-|Build | Code Quality | Code Inspector and Codacy| Unity | Git Inspector | Code Coverage |
-|:----:|:----:|:----:|:----:|:----:|:----:|
-
+|Build | Code Quality | Unity | Git Inspector |
+|:----:|:----:|:----:|:----:|
+| [![Linux C/C++ CI](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/Linux_c.yml/badge.svg)](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/Linux_c.yml) <br> [![Windows C/C++ CI](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/Windows_c.yml/badge.svg)](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/Windows_c.yml) | [![Code Quality - Static Code - Cppcheck](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/cppcheck.yml/badge.svg)](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/cppcheck.yml) <br> [![Valgrind](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/Valgrind.yml/badge.svg)](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/Valgrind.yml) | [![Unit testing](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/UnitTesting.yml/badge.svg)](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/UnitTesting.yml) | [![Contribution Check - Git Inspector](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/gitInspector.yml/badge.svg)](https://github.com/rajivadak/team15-SDLC-AUG_Batch/actions/workflows/gitInspector.yml)
 
 ## Folder Structure
 Folder                | Description
@@ -21,7 +21,7 @@ SF No.    |          Name          |    Features    | Issues Raised |Issues Reso
  99005772 | SHREYASI  CHAUDHURI    | Rate Of Change
  99005839 | Alna Satheesh          | Williams %R
  99005797 | Ramya  Desai           | Weighted Moving Average
- 99005769 | RAJIV  ADAK            | hull moving average
+ 99005769 | RAJIV  ADAK            | Triangular Moving Average
  99005807 | AASHI  LAHORI          | Relative Strength Index
  99005834 | Sourav  Sudarshan      | Money Flow Index Indicator
  99005762 | Kunal Kishore Mozarkar | Exponential Moving Average
