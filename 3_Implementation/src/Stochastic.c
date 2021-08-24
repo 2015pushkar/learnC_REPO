@@ -32,6 +32,7 @@ float Stochastic(int days, int crtday, float *close,float *HIGH, float *LOW)// d
    float kv,dv;
     kv=funforK(days, crtday, close, HIGH,  LOW);
     dv=funforD(days, crtday, close, HIGH,  LOW);
+    printf("\n %f\t\t%f\n",kv,dv);
    
 }
     
@@ -52,6 +53,7 @@ float funforK(int days,int crtday, float *close, float *HIGH, float *LOW)
         }
     }
     K = ((sum1-sum3)/(sum2-sum3))*100;
+    //printf("%f",K);
     return K;
 
 }

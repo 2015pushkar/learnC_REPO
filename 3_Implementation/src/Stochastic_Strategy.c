@@ -1,14 +1,17 @@
 /**
- * @file Stochastic_Strategy.c
+ * @file Stochastic_crossover.c
  * @author Pushkar Pramod Wani (pushkar.wani@ltts.com)
  * @PS No. 99005816
- * @brief To find Total Trades, P/L and Profit factor
+ * @brief  To decide the Buy and Sell of trade.
  * @version 0.1
  * @date 2021-08-24
  * 
  * @copyright Copyright (c) 2021
  * 
  */
+
+
+
 
 
 #include "Stochastic_header.h"
@@ -18,21 +21,7 @@
 void Stochastic_Strategy(char * filePath)
 {
     int SS_Choice; // for your choice
-    int days=14;  // Giving default value
-    
-     printf("\n1.Default Values\n2.External Input\nPlease enter a choice :");
-    scanf("%d",&SS_Choice);// asking the user whether to go with default values or will user input the values(eg: 14 for 14 day moving average or 50 for 50 day moving average)
-    while (SS_Choice!=1 && SS_Choice!=2) // checks is the user has inputted any values other than the given menu
-    {
-        printf("\nPlease Enter a valid choice from the given list of options :");
-        scanf("%d",&SS_Choice);
-    }
-    if(SS_Choice==2)
-    {
-        printf("\nEnter the number of days for middle band average and factor for bands calculation(positive whole number): "); 
-        scanf("%d",&days);// you can input different values in here according to your strategy
-    }
-    
+    int days=14; 
   
     
     
@@ -44,7 +33,7 @@ void Stochastic_Strategy(char * filePath)
     int length=findLengthOfArray(filePath);
 
     //SS is prefix for the common variables to differentiate it is for bollinger band strategy.
-    int SSTradeNo = 0;// This indicates the total number of trades that can happen. 
+    int SSTradeNo = 1;// This indicates the total number of trades that can happen. 
     float SSBuyp = 0; // This is the price at which the trade can be bought. 
     float SSSellp = 0; //This is the price at which the trade can be sold.
     float SSProfitLoss = 0; //This is the profit or loss for a single trade.
@@ -89,11 +78,14 @@ void Stochastic_Strategy(char * filePath)
 
     SSTotalLoss = (SSTotalLoss==0)?1:SSTotalLoss;
     SSProfitFactor = SSTotalProfit/SSTotalLoss;
-    SSProfitablePercent = (SSProfitableTrades/(SSTradeNo))*100;
-    printf("\n|| Total Trades: %d ||\t|| Profitable Trades percentage: %0.2f %% ||\t|| Total P/L: %f ||\t|| Profit Factor: %0.3f ||\n\n", (SSTradeNo), SSProfitablePercent,SSTotalpl, SSProfitFactor);
+    SSProfitablePercent = (SSProfitableTrades/(SSTradeNo-2))*100;
+    printf("\n|| Total Trades: %d ||\t|| Profitable Trades percentage: %0.2f %% ||\t|| Total P/L: %f ||\t|| Profit Factor: %0.3f ||\n\n", (SSTradeNo-2), SSProfitablePercent,SSTotalpl, SSProfitFactor);
 
     fclose(file_ptr);
-    free(filePath);
+    //free(filePath);
+    free(HIGH);
+    free(LOW);
+    free(close);
     return;
 
 }

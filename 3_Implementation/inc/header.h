@@ -129,5 +129,20 @@ int WilliamR(char* filepath);
 
 int findLength(char *);   //to find the number of rows in file
 
+float roc(int n, int todaysClosingprice, float *coloumnArray);
+
+_Bool rocCrossover( int roc1, int todaysClosingprice, float *coloumnArray);
+
+void rocStrategy(char *file);
+
+
+int mfiCalculator(float mfrValue);
+
+float wma(int days, int crtday, float *coloumnArray);
+
+_Bool wmaCrossover( int wm1, int wm2, int crtday, float *coloumnArray);
+
+void wmaStrategy(char *file);
+
 
 #endif

@@ -1,13 +1,12 @@
-#include <header.h>
+#include "header.h"
 #include <unistd.h>
 
-void smaStrategy(char *filePath){
+void rocStrategy(char *filePath){
 
     int choice;
-    int sm1 = 14; //put the inputs u want for your indicator
-    int sm2 = 28; //put the inputs u want for your indicator
-
-    printf("\nTwo different number of days are required for simple moving average calculations. \n\n1.Default Values\n2.External Input\nPlease enter a choice :");
+    int roc1 = 20; //put the inputs u want for your indicator
+    
+    printf("\n Number of days are required for rate of change calculations. \n\n1.Default Values\n2.External Input\nPlease enter a choice :");
     scanf("%d",&choice);
     while (choice!=1 && choice!=2)
     {
@@ -16,15 +15,11 @@ void smaStrategy(char *filePath){
     }
     if(choice==2)
     {
-        printf("\nEnter two different number of days for simple moving average :");
-        scanf("%d%d",&sm1,&sm2);
-
-        while((sm1>sm2) || (sm1<0) || (sm1>500)  || (sm2<0) || (sm2>500))
-        {
-            printf("\nEnter the lower number of days first and then the higher number of days both should be within 0 to 500: ");
-            scanf("%d%d",&sm1,&sm2);
-        }
+        printf("\nEnter number of days for rate of change :");
+        scanf("%d",&roc1);
     }
+
+    
 
     FILE *file = fopen(filePath,"r");
     float *close = readColumn(file,7);
@@ -45,19 +40,19 @@ void smaStrategy(char *filePath){
 
     _Bool intrade = false;
     printf("Trade\tStatus\t\tDate\t\t\tPrice\t\tP/L\n\n");
-    for (int i=(close[0]-sm2); i>0; i--)
+    for (int i=(close[0]-roc1); i>0; i--)
     {
 
-        if (smaCrossover(sm1, sm2, i, close) && !intrade ){
+        if (rocCrossover(roc1, i, close) && !intrade ){
             char *date = readDate(filePath,i+1);
             buyp=close[i];
 
             tradeNo++;
             printf("%d\tBUY\t\t%s\t\t%0.2f\n", tradeNo, date, buyp);
-
+            
             intrade = true;
         }
-        else if (!smaCrossover(sm1, sm2, i, close) && intrade){
+        else if (!rocCrossover(roc1, i, close) && intrade){
             char *date = readDate(filePath,i+1);
             sellp=close[i];
 
@@ -80,15 +75,13 @@ void smaStrategy(char *filePath){
     printf("\n|| Total Trades: %d ||\t|| Profitable Trades percentage: %0.2f %% ||\t|| Total P/L: %0.2f ||\t|| Profit Factor: %0.3f ||\n\n", (tradeNo), profitblprcnt, totalpl, profitFactor);
 
 }
+//takes the coloumn from where roc is to be calculated and the prices
 
-//takes the coloumn from where sma is to be calculated and the prices
-//check crossover of 14 sm1 and 28 sm2
-//returns true if 14 sma is above 28 sma and return false if vise-versa
-_Bool smaCrossover( int sm1, int sm2, int crtday, float *coloumnArray){
-    if ((sma(sm1,(crtday), coloumnArray)>sma(sm2,(crtday), coloumnArray))){        
+_Bool rocCrossover( int roc1, int todaysClosingprice, float *coloumnArray){
+    if (roc1<0){        
         return true;
     }
-    else if ((sma(sm1,(crtday), coloumnArray)<sma(sm2,(crtday), coloumnArray))){
+    else if(roc1>0) {
         return false;
     }
 }
